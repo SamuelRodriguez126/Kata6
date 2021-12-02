@@ -3,13 +3,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import toys.Car;
-import toys.SerialNumberGenerator;
+import toys.Helicopter;
+import toys.ToyBusiness;
 
 public class Main {
 
     public static void main(String[] args) {
-        SerialNumberGenerator generator = new SerialNumberGenerator();
+        ToyBusiness toyBusiness = new ToyBusiness();
         ArrayList<Car> cars = new ArrayList<>();
+        ArrayList<Helicopter> helicopters = new ArrayList<>();
         
         Scanner in = new Scanner(System.in);
         String line = "";
@@ -17,15 +19,28 @@ public class Main {
         //while(!(line = in.nextLine()).equals("exit")){
         while(!"exit".equals(line)){
             line = in.nextLine();
-            if(!"exit".equals(line)){
-                Car car = new Car(generator.next());
-                car.pack();
-                car.label();
-                cars.add(car);
-                System.out.println("Built cars: " + cars
-                        .stream()
-                        .map(c -> c.getSerialNumber().toString())
-                        .collect(Collectors.joining(", ")));
+            switch (line){
+                case "car":    
+                    cars.add(toyBusiness.createCar());
+                    System.out.println("Built cars: " + cars
+                            .stream()
+                            .map(c -> c.getSerialNumber().toString())
+                            .collect(Collectors.joining(", ")));
+                    break;
+                case "helicopter":    
+                    helicopters.add(toyBusiness.createHelicopter());
+                    System.out.println("Built helicopters: " + helicopters
+                            .stream()
+                            .map(c -> c.getSerialNumber().toString())
+                            .collect(Collectors.joining(", ")));
+                    break;
+                
+                case "exit":
+                    System.out.println("Exiting...");
+                    break;
+                
+                default:
+                    System.out.println("Command unknown!");
             }                                
         }
     }
