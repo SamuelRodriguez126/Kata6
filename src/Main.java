@@ -4,9 +4,8 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 import toyproducts.Toy;
 import business.ToyBusiness;
-import factories.regionalfactories.AmericanCarToyFactory;
-import factories.regionalfactories.AmericanSubmarineToyFactory;
-import factories.regionalfactories.AsianHelicopterToyFactory;
+import factories.regionalfactories.AmericanHelicopterToyFactory;
+import factories.regionalfactories.AsianCarToyFactory;
 
 public class Main {
 
@@ -15,20 +14,17 @@ public class Main {
         ToyBusiness toyBusiness = new ToyBusiness();
         ArrayList<Toy> toys = new ArrayList<>();
         
-        toyBusiness.add("car", new AmericanCarToyFactory());
-        toyBusiness.add("helicopter", new AsianHelicopterToyFactory());
-        toyBusiness.add("submarine", new AmericanSubmarineToyFactory());
+        toyBusiness.add("car", new AsianCarToyFactory());
+        toyBusiness.add("helicopter", new AmericanHelicopterToyFactory());
         
         Scanner in = new Scanner(System.in);
         String line = "";
         
-        //while(!(line = in.nextLine()).equals("exit")){
         while(!"exit".equals(line)){
             line = in.nextLine();
             switch (line){
                 case "car":    
                 case "helicopter":    
-                case "submarine":
                     toys.add(toyBusiness.produceToy(line));
                     System.out.println("Built toys: " + toys
                             .stream()
